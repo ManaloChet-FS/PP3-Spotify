@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background: #191414;
+}
+
+main {
+  height: calc(100svh - 4rem);
+}

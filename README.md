@@ -11,12 +11,11 @@ NodeJS >= 20.18.0
 npm >= 10.8.2  
 
 # Getting Started
-To run the server, change directory into the backend folder and then use `npm run start` in the terminal. This will start the server on port 3000 unless specified otherwise in the environment variable, `PORT`.
-
-To run the front-end, change directory into the frontend folder and use npm run dev, this will run a server hosted on port 5173.
+The run the server, use the `npm run start` command in the root of the project or in the backend directory.
+To run just the front-end, use `npm run dev` in the frontend directory.
 
 # Links
 - http://localhost:3000/  
-Link for the backend of the application (Express)
+Link for the backend of the application serving the front-end (Express)
 - http://localhost:5173/  
 Link for the front-end of the application (React.js)

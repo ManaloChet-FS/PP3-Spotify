@@ -1,14 +1,14 @@
 const express = require('express');
-const app = express();
-
-// For reading environment variables
+const path = require("path");
 require("dotenv").config();
 
-app.get("/", (req, res) => {
-  res.status(200).json({
-    "message": "Welcome to the Spotify Searchinator!"
-  })
+const app = express();
+
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
 })
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`SERVER RUNNING ON PORT ${port}`));
