@@ -8,11 +8,11 @@ function App() {
 
   return (
     <>
-      <Header loggedIn={loggedIn} toggleLogin={toggleLogin} />
+      <Header loggedIn={loggedIn} />
       <main className="flex-grow">
         <Routes>
-          <Route path="/" element={<Search loggedIn={loggedIn} />} />
-          <Route path="/login" element={<Login toggleLogin={toggleLogin} />} />
+          <Route path="/" element={<Search toggleLogin={toggleLogin} />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </main>
     </>

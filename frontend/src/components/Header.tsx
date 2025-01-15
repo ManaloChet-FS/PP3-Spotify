@@ -1,13 +1,10 @@
 import { FaSpotify, FaSearch } from "react-icons/fa";
-import { AuthButton } from ".";
-import { DispatchWithoutAction } from "react";
 
 interface HeaderProps {
   loggedIn: boolean,
-  toggleLogin: DispatchWithoutAction
 }
 
-const Header = ({ loggedIn, toggleLogin }: HeaderProps) => {
+const Header = ({ loggedIn }: HeaderProps) => {
   return (
     <header className="bg-spotifyGreen text-slate-50 h-16 px-4 shadow-sm flex justify-between items-center">
       <div className="flex-1">
@@ -25,9 +22,7 @@ const Header = ({ loggedIn, toggleLogin }: HeaderProps) => {
             autoComplete="off"
             className="bg-transparent border-b w-96 outline-none placeholder:text-slate-50 placeholder:opacity-75" />
         </div>
-        <div className="flex-1 text-right">
-          <AuthButton isLogin={false} toggleLogin={toggleLogin} />
-        </div>
+        <div className="flex-1"></div>
       </>}
     </header>
   )

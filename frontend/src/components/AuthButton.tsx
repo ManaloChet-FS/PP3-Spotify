@@ -1,18 +1,11 @@
-import { DispatchWithoutAction } from "react";
-import { useNavigate } from "react-router";
-
 interface ButtonProps {
-  isLogin: boolean,
-  toggleLogin: DispatchWithoutAction;
+  isLogin: boolean
 }
 
-const Button = ({ isLogin, toggleLogin }: ButtonProps) => {
-  const navigate = useNavigate();
-
+const Button = ({ isLogin }: ButtonProps) => {
   return (
     <button onClick={() => {
-      toggleLogin();
-      navigate("/");
+      window.location.href = "/auth/login";
     }} className={`${isLogin ?
       'bg-spotifyGreen hover:bg-spotifyGreenDarker text-2xl max-w-xs'
       : 'bg-green-600 hover:bg-green-700 max-w-32'}
