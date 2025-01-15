@@ -1,8 +1,8 @@
-import { DispatchWithoutAction, useEffect, useState } from "react";
+import { DispatchWithoutAction, useEffect } from "react";
 import { FaSpotify } from "react-icons/fa";
 // import { useNavigate } from "react-router";
-import { Cover } from "../components";
-import axios from "axios";
+// import { Cover } from "../components";
+// import axios from "axios";
 
 interface searchProps {
   toggleLogin: DispatchWithoutAction
