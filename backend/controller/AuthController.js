@@ -2,7 +2,6 @@ const User = require("../models/User");
 const axios = require("axios");
 const { generateToken } = require("../utility/jwt");
 const { generateRandomString } = require("../utility/generate");
-const { isTokenExpired } = require("../utility/token");
 
 const { CLIENT_ID, CLIENT_SECRET } = process.env;
 
@@ -13,6 +12,7 @@ exports.login = (req, res) => {
   authURL.searchParams.append('response_type', 'code');
   authURL.searchParams.append('client_id', CLIENT_ID);
   authURL.searchParams.append('redirect_uri', 'http://localhost:3000/auth/callback');
+  authURL.searchParams.append('scope', 'user-read-private')
   authURL.searchParams.append('state', generateRandomString(16));
 
   res.redirect(authURL);
@@ -77,7 +77,6 @@ exports.callback = async (req, res) => {
     res.cookie("jwt", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      maxAge: 3600 * 1000
     });
     res.cookie("access_token", access_token, {
       httpOnly: true,

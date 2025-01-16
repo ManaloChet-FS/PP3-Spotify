@@ -17,6 +17,9 @@ app.use(cors());
 const authRouter = require("./routes/AuthRoutes");
 app.use('/auth', authRouter);
 
+const spotifyRouter = require("./routes/SpotifyRoutes");
+app.use('/spotify', spotifyRouter);
+
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 app.get("/*", (req, res) => {

@@ -9,7 +9,11 @@ const generateToken = (id) => {
 };
 
 const verifyToken = async (token) => {
-  return jwt.verify(token, SECRET_KEY);
+  try {
+    return jwt.verify(token, SECRET_KEY);
+  } catch (err) {
+    return false;
+  }
 }
 
 module.exports = {
