@@ -1,6 +1,6 @@
 import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react";
 import { FaSpotify, FaSearch } from "react-icons/fa";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import axios from "axios";
 
 interface HeaderProps {
@@ -12,6 +12,7 @@ const Header = ({ setResults }: HeaderProps) => {
   const [query, setQuery] = useState<string>("");
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -27,6 +28,9 @@ const Header = ({ setResults }: HeaderProps) => {
     axios.get(`/spotify/search?q=${query}`,)
       .then(({ data }) => {
         setResults(data);
+      })
+      .catch(() => {
+        navigate("/login");
       });
   }
 
@@ -45,6 +49,7 @@ const Header = ({ setResults }: HeaderProps) => {
             id="search"
             placeholder="Search for a song, artist, or album..."
             autoComplete="off"
+            required
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="bg-transparent border-b w-96 outline-none placeholder:text-slate-50 placeholder:opacity-75" />
