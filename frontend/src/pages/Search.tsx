@@ -1,30 +1,28 @@
-import { DispatchWithoutAction, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaSpotify } from "react-icons/fa";
-import { useNavigate } from "react-router";
-// import { Cover } from "../components";
-import axios from "axios";
+import { Cover } from "../components";
 
-interface searchProps {
-  toggleLogin: DispatchWithoutAction
+interface SearchProps {
+  results: Results | null
 }
 
-const Search = ({ toggleLogin }: searchProps) => {
-  // const [songs, setSongs] = useState<Song[]>([]);
-  // const [artists, setArtists] = useState<Artist[]>([]);
-  // const [albums, setAlbums] = useState<Album[]>([]);
-  // const [resultsReady, setResultsReady] = useState<boolean>(false);
-  const resultsReady = false;
-
-  const navigate = useNavigate();
+const Search = ({ results }: SearchProps) => {
+  const [songs, setSongs] = useState<Song[]>([]);
+  const [artists, setArtists] = useState<Artist[]>([]);
+  const [albums, setAlbums] = useState<Album[]>([]);
+  const [resultsReady, setResultsReady] = useState<boolean>(false);
 
   useEffect(() => {
-    toggleLogin();
+    if (!results) {
+      return;
+    }
 
-    axios.get("/spotify/search")
-      .catch(() => {
-        navigate("/login");
-      });
-  }, [])
+    setSongs(results.tracks.items);
+    setArtists(results.artists.items);
+    setAlbums(results.albums.items);
+
+    setResultsReady(true);
+  }, [results])
 
   return (
     <section className="h-full">
@@ -39,19 +37,19 @@ const Search = ({ toggleLogin }: searchProps) => {
           <section>
             <h3 className="border-b-4 pb-2 mb-4">Songs</h3>
             <div className="flex items-center justify-start gap-5 px-4">
-              {/* {songs.map((song, index) => <Cover key={index} name={song.name} />)} */}
+              {songs.map((song, index) => <Cover key={index} name={song.name} />)}
             </div>
           </section>
           <section>
             <h3 className="border-b-4 pb-2 mb-4">Artists</h3>
             <div className="flex items-center justify-start gap-5 px-4">
-              {/* {artists.map((artist, index) => <Cover key={index} name={artist.name} />)} */}
+              {artists.map((artist, index) => <Cover key={index} name={artist.name} />)}
             </div>
           </section>
           <section>
             <h3 className="border-b-4 pb-2 mb-4">Albums</h3>
             <div className="flex items-center justify-start gap-5 px-4">
-              {/* {albums.map((album, index) => <Cover key={index} name={album.name} />)} */}
+              {albums.map((album, index) => <Cover key={index} name={album.name} />)}
             </div>
           </section>
         </div>)}

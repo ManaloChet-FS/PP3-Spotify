@@ -12,7 +12,7 @@ exports.login = (req, res) => {
   authURL.searchParams.append('response_type', 'code');
   authURL.searchParams.append('client_id', CLIENT_ID);
   authURL.searchParams.append('redirect_uri', 'http://localhost:3000/auth/callback');
-  authURL.searchParams.append('scope', 'user-read-private')
+  // authURL.searchParams.append('scope', 'user-read-private') Can add this to make it a managed app
   authURL.searchParams.append('state', generateRandomString(16));
 
   res.redirect(authURL);

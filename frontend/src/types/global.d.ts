@@ -1,4 +1,16 @@
 declare global {
+  interface Results {
+    tracks: {
+      items: Song[]
+    }
+    artists: {
+      items: Artist[]
+    }
+    albums: {
+      items: Album[]
+    }
+  }
+
   interface Song {
     name: string
   }
