@@ -59,12 +59,10 @@ exports.callback = async (req, res) => {
     if (!user) {
       user = await User.create({
         spotify_id,
-        access_token,
         refresh_token,
         expires: Date.now() + expires_in * 1000
       });
     } else {
-      user.access_token = access_token;
       user.refresh_token = refresh_token;
       user.expires = Date.now() + expires_in * 1000;
       await user.save();

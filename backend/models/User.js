@@ -6,10 +6,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  access_token: {
-    type: String,
-    required: true
-  },
   refresh_token: {
     type: String,
     required: true
