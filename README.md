@@ -21,3 +21,5 @@ To run just the front-end, use `npm run dev` in the frontend directory.
 Link for the backend of the application serving the front-end (Express)
 - http://localhost:5173/  
 Link for the front-end of the application (React.js)
+- https://pp3-spotify-production.up.railway.app/  
+Live Link
