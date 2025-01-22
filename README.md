@@ -5,10 +5,12 @@ The Spotify Searchinator utilizes the Spotify Web API to allow users to search f
 - React + Vite for the front-end
 - TailwindCSS for front-end styling
 - Express for the backend
+- Spotify Web API
 
 # Prerequisites
+A Spotify account for logging in  
 NodeJS >= 20.18.0  
-npm >= 10.8.2  
+npm >= 10.8.2
 
 # Getting Started
 The run the server, use the `npm run start` command in the root of the project or in the backend directory.
