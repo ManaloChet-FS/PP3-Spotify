@@ -13,5 +13,16 @@ exports.search = (req, res) => {
     }
   }).then(({ data }) => {
     res.status(200).json(data);
+  }).catch((err) => {
+    switch (err.status) {
+      case 400:
+        res.status(400).json({"msg": "Invalid search query!"});
+        break;
+      case 401:
+        res.status(401).json({"msg": "Invalid access token!"});
+        break;
+      default:
+        res.status(500).json({"msg": "Server error!"});
+    }
   })
 }

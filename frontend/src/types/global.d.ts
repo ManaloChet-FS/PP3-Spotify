@@ -11,16 +11,19 @@ declare global {
     }
   }
 
-  interface Song {
+  interface Item {
     name: string
-  }
-
-  interface Artist {
-    name: string
-  }
-
-  interface Album {
-    name: string
+    images: object[{
+       url: string
+    }]
+    external_urls: {
+      spotify: string
+    }
+    album?: {
+      images: object[{
+        url: string
+     }]
+    };
   }
 }
 

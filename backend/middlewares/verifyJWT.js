@@ -1,5 +1,7 @@
 const { verifyToken } = require("../utility/jwt");
+const axios = require("axios");
 const User = require("../models/User");
+require("dotenv").config();
 
 const { CLIENT_ID, CLIENT_SECRET } = process.env;
 
@@ -12,7 +14,7 @@ const jwt = async (req, res, next) => {
 
     if (!user) {
       return res.status(401).json({
-        error: "No User Found"
+        msg: "No user found! Please login!"
       });
     }
 
@@ -25,23 +27,26 @@ const jwt = async (req, res, next) => {
           refresh_token: user.refresh_token
         },
         headers: {
-          'content-type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization': 'Basic ' + (new Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64'))
         },
         json: true
       }
 
-      const { data } = await axios(authOptions);
-      const { access_token, expires_in } = data;
+      await axios(authOptions)
+        .then(({data}) => {
+          const { access_token, expires_in } = data;
 
-      res.cookie("access_token", access_token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-      });
-      res.cookie("expires", Date.now() + expires_in * 1000, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-      });
+          res.cookie("access_token", access_token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+          });
+
+          user.access_token = access_token;
+          user.expires = Date.now() + expires_in * 1000;
+          user.save();
+        })
+        .catch((err) => console.log(err));
     }
 
     next();

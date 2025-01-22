@@ -3,7 +3,7 @@ const axios = require("axios");
 const { generateToken } = require("../utility/jwt");
 const { generateRandomString } = require("../utility/generate");
 
-const { CLIENT_ID, CLIENT_SECRET } = process.env;
+const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI } = process.env;
 
 exports.login = (req, res) => {
   const authURL = new URL('https://accounts.spotify.com/authorize');
@@ -11,7 +11,7 @@ exports.login = (req, res) => {
   // Add all required params
   authURL.searchParams.append('response_type', 'code');
   authURL.searchParams.append('client_id', CLIENT_ID);
-  authURL.searchParams.append('redirect_uri', 'http://localhost:3000/auth/callback');
+  authURL.searchParams.append('redirect_uri', REDIRECT_URI);
   // authURL.searchParams.append('scope', 'user-read-private') Can add this to make it a managed app
   authURL.searchParams.append('state', generateRandomString(16));
 
@@ -33,7 +33,7 @@ exports.callback = async (req, res) => {
       url: 'https://accounts.spotify.com/api/token',
       data: {
         code: code,
-        redirect_uri: 'http://localhost:3000/auth/callback',
+        redirect_uri: REDIRECT_URI,
         grant_type: 'authorization_code'
       },
       headers: {
@@ -75,14 +75,10 @@ exports.callback = async (req, res) => {
 
     // Set the JWT and other cookies
     res.cookie("jwt", token, {
-      httpOnly: true,
+      httpOnly: false,
       secure: process.env.NODE_ENV === "production",
     });
     res.cookie("access_token", access_token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-    });
-    res.cookie("expires", Date.now() + expires_in * 1000, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
     });
